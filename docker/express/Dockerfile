@@ -5,7 +5,7 @@ FROM node:latest
 WORKDIR /usr/src/app
 
 # Bundle app source
-COPY ../../cafe-rewards-backend .
+COPY ../../cafe-rewards-backend/ .
 
 # Install app dependencies
 RUN npm install
