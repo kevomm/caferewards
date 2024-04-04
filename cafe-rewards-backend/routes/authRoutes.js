@@ -32,12 +32,12 @@ authRouter.post('/register', async (req, res) => {
         });
     } catch (error) {
         if(error.message === 'Validation error') {
-            return res.json({
+            return res.status(401).json({
                 status: 401,
                 error: 'One of the fields is not correctly formatted'
             });
         }
-        return res.json({
+        return res.status(401).json({
             status: 401,
             error: error.message
         });
