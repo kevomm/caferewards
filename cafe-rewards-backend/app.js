@@ -8,6 +8,9 @@ const app = express();
 // db
 const sequelize = require('./config/config');
 
+// cors
+app.use(cors());
+
 // http parsers
 app.use(bodyParser.json());
 app.use(cookieParser());
