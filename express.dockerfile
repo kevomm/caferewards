@@ -14,7 +14,7 @@ RUN npm install
 EXPOSE 3000
 
 ENV DB_USER=postgres
-ENV DB_HOST=postgres_db
+ENV DB_HOST=127.0.0.1
 ENV DB_DATABASE=postgres
 ENV DB_PASSWORD=Capstone
 ENV DB_PORT=5432
