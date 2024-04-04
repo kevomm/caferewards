@@ -55,12 +55,14 @@ a {
     margin-top: 16px;
     text-align: center;
     font-size: 14px;
+    padding: 1em 0;
+    border-radius: 5px;
 }
 
 .error-message {
-    background-color: rgb(209, 78, 78);
+    background-color: rgb(255, 117, 117);
 }
 
 .success-message {
-    background-color: rgb(83, 188, 83);
+    background-color: rgb(120, 238, 120);
 }

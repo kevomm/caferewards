@@ -54,9 +54,11 @@ export default function Signup() {
                 setError(false)
                 setSuccess(true)
             } else {
+                setSuccess(false)
                 setError(true)
             }
         } catch (error) {
+            setSuccess(false)
             setError(true)
         }
     };
@@ -81,8 +83,8 @@ export default function Signup() {
                 <button type="submit">Sign Up</button>
                 <p>Already a member? <a href="login.html">Log In</a></p>
         
-                { error ? <div id="error-message" class="error-message">Error</div> : <></>}
-                { success ? <div id="success-message" class="success-message">Success</div> : <></>}
+                { error ? <div id="error-message" className="error-message">Error</div> : <></>}
+                { success ? <div id="success-message" className="success-message">Success</div> : <></>}
             </form>
         </>
 
