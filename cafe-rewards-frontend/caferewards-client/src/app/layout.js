@@ -10,9 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <header class="main-header">
-          <nav class="main-nav">
-            <ul class="nav-list">
+        <header className="main-header">
+          <nav className="main-nav">
+            <ul className="nav-list">
               <li><Link href="/">HOME</Link></li>
               <li><Link href="#">GLOBAL</Link></li>
               <li><Link href="#">CARDS</Link></li>
@@ -23,10 +23,10 @@ export default function RootLayout({ children }) {
           </nav>
         </header>
         {children}
-        <footer class="main-footer">
-          <div class="footer-content">
-              <div class="footer-nav">
-                  <ul class="nav-list">
+        <footer className="main-footer">
+          <div className="footer-content">
+              <div className="footer-nav">
+                  <ul className="nav-list">
                       <li><Link href="/">HOME</Link></li>
                       <li><Link href="/global">GLOBAL</Link></li>
                       <li><Link href="#">CARDS</Link></li>
@@ -35,10 +35,10 @@ export default function RootLayout({ children }) {
                       <li><Link href="#">ACCOUNT</Link></li>
                   </ul>
               </div>
-              <div class="footer-logo">
-                  <a href="index.html" class="logo">CAFÉ REWARDS</a>
+              <div className="footer-logo">
+                  <a href="index.html" className="logo">CAFÉ REWARDS</a>
               </div>
-              <div class="footer-legal">
+              <div className="footer-legal">
                   <p>&copy; 2024 Café Rewards Puerto Rico. All rights reserved.</p>
                   <p><a>Privacy Policy</a> | <a>Terms of Service</a></p>
               </div>
