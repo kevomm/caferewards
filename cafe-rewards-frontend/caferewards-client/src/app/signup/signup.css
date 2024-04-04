@@ -56,3 +56,11 @@ a {
     text-align: center;
     font-size: 14px;
 }
+
+.error-message {
+    background-color: rgb(209, 78, 78);
+}
+
+.success-message {
+    background-color: rgb(83, 188, 83);
+}

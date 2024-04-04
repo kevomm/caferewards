@@ -9,6 +9,8 @@ export default function Signup() {
     const [password, setPassword] = useState()
     const [passConfirm, setConfirm] = useState()
     const [fullName, setName] = useState()
+    const [error, setError] = useState() 
+    const [success, setSuccess] = useState()
 
     // Function to handle input change for full name
     const handleNameChange = (event) => {
@@ -49,13 +51,13 @@ export default function Signup() {
     
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                setError(false)
+                setSuccess(true)
             } else {
-                const errorData = await response.json();
-                console.error(errorData);
+                setError(true)
             }
         } catch (error) {
-            console.error('Error:', error);
+            setError(true)
         }
     };
 
@@ -79,8 +81,8 @@ export default function Signup() {
                 <button type="submit">Sign Up</button>
                 <p>Already a member? <a href="login.html">Log In</a></p>
         
-                <div id="error-message" class="error-message"></div>
-                <div id="success-message" class="success-message"></div>
+                { error ? <div id="error-message" class="error-message">Error</div> : <></>}
+                { success ? <div id="success-message" class="success-message">Success</div> : <></>}
             </form>
         </>
 
