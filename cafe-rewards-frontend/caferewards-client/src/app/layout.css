@@ -1,0 +1,310 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --background-color: #fff;
+    --text-color: #333;
+    --text-align-center: center;
+    --standard-padding: 1em;
+    --list-margin: 0 15px;
+    --standard-font-weight: 600;
+    --logo-font-weight: 700;
+    --logo-font-size: 20px;
+    --standard-font-size: 14px;
+    --link-padding-bottom: 5px;
+    --transition-all: all 0.3s ease-in-out;
+    --border-bottom: 2px solid var(--text-color);
+    --line-height: 2px;
+    --standard-margin: 20px;
+    --border-bottom-height: 20px;
+}
+
+.main-header {
+    text-align: var(--text-align-center);
+    padding: var(--standard-padding);
+}
+
+/* Utils.css: Common Utility Styles */
+
+/* Variable Declarations */
+:root {
+    --text-align-center: center;
+    --standard-padding: 10px;
+}
+
+/* Flex Styles */
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Text Styles */
+.center-text {
+    text-align: var(--text-align-center);
+}
+
+/* Margin and Padding Styles */
+.margin-auto {
+    margin: auto;
+}
+
+.padding-10 {
+    padding: var(--standard-padding);
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+/* Font Styles */
+.font-assistant {
+    font-family: 'Assistant', sans-serif;
+}
+
+.font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Box Styles */
+.rounded-corner-8 {
+    border-radius: 8px;
+}
+
+.shadow {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.main-header {
+    text-align: var(--text-align-center);
+    padding: var(--standard-padding);
+}
+
+
+:root {
+    /* Main styles */
+    --color-text: #333; /* Text color */
+    --color-active: #000; /* Active link color */
+    --color-background: #fff; /* Background color */
+    --color-link-hover: #666; /* Link hover color */
+
+    /* Font sizes */
+    --font-size-nav: 1rem; /* Navigation font size */
+    --font-size-logo: 3rem; /* Logo font size */
+
+    /* Spacing */
+    --spacing-nav: 1rem; /* Navigation items spacing */
+    --spacing-page: 2rem; /* Page top and bottom spacing */
+
+    /* Borders and lines */
+    --border-nav-active-height: 2px; /* Active link border height */
+    --border-radius: 8px; /* Border radius for elements */
+
+    /* Transition */
+    --transition-fast: all 0.3s ease-in-out; /* Quick transition for interactions */
+
+    --logo-font-weight: 900;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Assistant', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+.header {
+    background: var(--color-background);
+    padding: var(--spacing-page) 0;
+}
+
+.main-nav {
+    text-align: center;
+}
+
+.main-nav .nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-nav .nav-list li {
+    margin: 0 var(--spacing-nav);
+}
+
+.main-nav .nav-list li a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: var(--font-size-nav);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.main-nav .nav-list li a.active,
+.main-nav .nav-list li a:hover {
+    color: var(--color-active);
+}
+
+.main-nav .nav-list li a.active::after {
+    content: '';
+    position: absolute;
+    left: 48%;
+    bottom: 4px; /* Adjust this value to move the line closer or further away */
+    transform: translateX(-50%);
+    width: 100%;
+    height: 2px; /* Thickness of the underline */
+    background-color: #000; /* Color of the underline */
+    transition: all 0.3s ease-in-out;
+}
+
+.main-nav .nav-list li a:not(.active)::after {
+    background-color: transparent;
+}
+
+.main-nav .nav-list li.logo a {
+    font-size: var(--font-size-logo);
+
+    /* Use of the new CSS Variable */
+    font-weight: var(--logo-font-weight);
+}
+
+/* Adjustments for active link underline */
+.main-nav .nav-list li a::after {
+    height: 2px; /* Adjust the thickness of the line here */
+    border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-nav .nav-list {
+        flex-direction: column;
+    }
+
+    .main-nav .nav-list li a {
+        padding: var(--spacing-nav) 0;
+    }
+
+    .main-nav .nav-list li a::after {
+        width: 50px; /* Adjust the width of the line on mobile devices */
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+.main-header {
+    text-align: var(--text-align-center);
+    padding: var(--standard-padding);
+}
+
+.top-line, .section-line, .bottom-line {
+    border: none;
+    height: var(--line-height);
+    background-color: var(--text-color);
+    margin: var(--standard-margin) 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
+
+/* Add the variables from your variables.css file */
+:root {
+    --color-background-footer: #000; /* Black background */
+    --color-text-footer: #fff; /* White text */
+    --color-link-footer: #fff; /* White link */
+    --color-link-hover-footer: #ddd; /* Light grey for hover state */
+    --font-family-footer: 'Assistant', sans-serif; /* Primary font */
+    --font-family-logo-footer: 'Montserrat', sans-serif; /* Logo font */
+    --font-weight-logo-footer: 700; /* Logo font weight */
+}
+
+.main-footer {
+    background-color: var(--color-background-footer);
+    color: var(--color-text-footer);
+    font-family: var(--font-family-footer);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.main-footer a {
+    color: var(--color-link-footer);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.main-footer a:hover {
+    color: var(--color-link-hover-footer);
+}
+
+.main-footer .footer-logo {
+    font-family: var(--font-family-logo-footer);
+    font-weight: var(--font-weight-logo-footer);
+    font-size: 1.5rem;
+    margin-bottom: 1rem; /* Adjust spacing as needed */
+}
+
+.main-footer .footer-nav {
+    margin-bottom: 1rem; /* Adjust spacing as needed */
+}
+
+.main-footer .footer-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.main-footer .footer-nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.main-footer .footer-legal {
+    font-size: 0.75rem; /* Smaller font size for legal text */
+}
+
+/* Responsive adjustments if necessary */
+@media (max-width: 768px) {
+    .main-footer .footer-nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
+
+body {
+    font-family: 'Assistant', sans-serif;
+}
+
+.main-header {
+    font-family: 'Assistant', sans-serif;
+}
+
+.main-nav .nav-list li {
+    font-family: 'Assistant', sans-serif;
+}
+
+.main-nav .nav-list li.logo {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.main-nav .nav-list a {
+    font-family: 'Assistant', sans-serif;
+}
+
+
