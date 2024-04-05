@@ -20,6 +20,17 @@ app.use(cookieParser());
 // auth routes
 app.use('/auth', authRoutes);
 
+app.get('/allusers', async (req, res) => {
+    try {
+        res.json(await User.findAll());
+    } catch (error) {
+        res.status(500).json({
+            status: 500,
+            error: error.message
+        });
+    }
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
     await sequelize.sync();
