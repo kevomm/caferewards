@@ -14,7 +14,7 @@ RUN npm install
 # Build the Next.js application
 RUN npm run build
 
-# Expose port 3000 to the outside world
+# Expose port 3001 to the outside world
 EXPOSE 3001
 
 # Define the command to run the Next.js application

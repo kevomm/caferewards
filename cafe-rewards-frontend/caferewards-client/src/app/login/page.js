@@ -27,7 +27,7 @@ export default function Signup() {
         event.preventDefault()
 
         try {
-            const response = await fetch('http://172.17.0.4:3000/auth/login', {
+            const response = await fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

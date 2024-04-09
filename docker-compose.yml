@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    container_name: postgres
+    build:
+      context: ./
+      dockerfile: postgres.dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cafe_rewards
+
+  express-app:
+    container_name: express
+    build:
+      context: ./
+      dockerfile: express.dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - cafe_rewards
+
+  nextjs-app:
+    container_name: nextjs
+    build:
+      context: ./
+      dockerfile: nextjs.dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - express-app
+    networks:
+      - cafe_rewards
+
+networks:
+  cafe_rewards:
+    driver: bridge
+
+volumes:
+  postgres_data:
