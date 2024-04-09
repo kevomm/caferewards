@@ -31,7 +31,7 @@ export default function Signup() {
             if(process.env.PROD == 'false') {
                 url = 'http://localhost:3000/auth/login'
             } else {
-                url = 'http://172.233.189.185:3000/auth/register'
+                url = 'http://172.233.189.185:3000/auth/login'
             }
             const response = await fetch(url, {
                 method: 'POST',
