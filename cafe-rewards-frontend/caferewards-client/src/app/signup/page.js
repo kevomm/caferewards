@@ -41,7 +41,7 @@ export default function Signup() {
     
         try {
             let url = ''
-            if(process.env.PROD) {
+            if(process.env.PROD == 'false') {
                 url = 'http://localhost:3000/auth/login'
             } else {
                 url = 'http://172.233.189.185:3000/auth/register'
