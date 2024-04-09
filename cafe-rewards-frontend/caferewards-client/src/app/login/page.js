@@ -27,7 +27,13 @@ export default function Signup() {
         event.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3000/auth/login', {
+            let url = ''
+            if(process.env.PROD) {
+                url = 'http://localhost:3000/auth/login'
+            } else {
+                url = 'http://172.233.189.185:3000/auth/register'
+            }
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

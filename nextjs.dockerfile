@@ -17,5 +17,8 @@ RUN npm run build
 # Expose port 3001 to the outside world
 EXPOSE 3001
 
+#######################################################
+ENV PROD=false
+
 # Define the command to run the Next.js application
 CMD ["npm", "start"]
