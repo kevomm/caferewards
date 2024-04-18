@@ -10,15 +10,14 @@ COPY ./cafe-rewards-frontend/caferewards-client/ .
 # Install dependencies
 RUN npm install
 
+#######################################################
+ENV NEXT_PUBLIC_PROD=false
 
 # Build the Next.js application
 RUN npm run build
 
 # Expose port 3001 to the outside world
 EXPOSE 3001
-
-#######################################################
-ENV PROD=false
 
 # Define the command to run the Next.js application
 CMD ["npm", "start"]

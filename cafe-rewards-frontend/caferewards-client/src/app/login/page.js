@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useState} from "react";
 import Link from "next/link";
 import './login.css'
 import { useRouter } from "next/navigation";
@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 
 export default function Signup() {
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [error, setError] = useState(false)
-    const router = useRouter()
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [error, setError] = useState(false);
+    const router = useRouter();
 
     // Function to handle input change htmlFor email
     const handleEmailChange = (event) => {
@@ -24,15 +24,10 @@ export default function Signup() {
     };
 
     const login = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         try {
-            let url = ''
-            if(process.env.PROD == 'false') {
-                url = 'http://localhost:3000/auth/login'
-            } else {
-                url = 'http://172.233.189.185:3000/auth/login'
-            }
+            const url = process.env.NEXT_PUBLIC_PROD === 'true' ? process.env.NEXT_PUBLIC_LOGIN_URL_PROD : process.env.NEXT_PUBLIC_LOGIN_URL_LOCAL;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -41,19 +36,18 @@ export default function Signup() {
                 body: JSON.stringify({
                     email,
                     password
-                })
+                }),
+                credentials: 'include'
             });
     
             if (response.ok) {
-                setError(false)
-                router.push('/')
+                setError(false);
+                return router.push('/dashboard');
             } else {
-                console.log('shit')
-                setError(true)
+                return setError(true);
             }
         } catch (error) {
-            console.log(error.message)
-            setError(true)
+            return setError(true);
         }
     };
 

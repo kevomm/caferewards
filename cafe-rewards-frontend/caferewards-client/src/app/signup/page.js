@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import '../layout.css'
 import './signup.css'
@@ -7,14 +7,12 @@ import { useRouter } from 'next/navigation';
 
 export default function Signup() {
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [passConfirm, setConfirm] = useState()
-    const [fullName, setName] = useState()
-    const [error, setError] = useState(false) 
-    const [success, setSuccess] = useState(false)
-
-    const router = useRouter()
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [passConfirm, setConfirm] = useState();
+    const [fullName, setName] = useState();
+    const [error, setError] = useState(false);
+    const router = useRouter();
 
     // Function to handle input change for full name
     const handleNameChange = (event) => {
@@ -38,14 +36,8 @@ export default function Signup() {
 
     const signup = async (event) => {
         event.preventDefault();
-    
         try {
-            let url = ''
-            if(process.env.PROD == 'false') {
-                url = 'http://localhost:3000/auth/login'
-            } else {
-                url = 'http://172.233.189.185:3000/auth/register'
-            }
+            const url = process.env.NEXT_PUBLIC_PROD === 'true' ? process.env.NEXT_PUBLIC_SIGNUP_URL_PROD : process.env.NEXT_PUBLIC_SIGNUP_URL_LOCAL;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -58,22 +50,17 @@ export default function Signup() {
                     password
                 })
             });
-    
+
             if (response.ok) {
-                const data = await response.json();
-                setError(false)
-                setSuccess(true)
-                router.push('/login')
+                setError(false);
+                return router.push('/login');
             } else {
-                setSuccess(false)
-                setError(true)
+                return setError(true);
             }
         } catch (error) {
-            setSuccess(false)
-            setError(true)
+            return setError(true);
         }
     };
-
 
 
     return (
@@ -95,7 +82,6 @@ export default function Signup() {
                 <p>Already a member? <Link href="/login">Log In</Link></p>
         
                 { error ? <div id="error-message" className="error-message">Error</div> : <></>}
-                { success ? <div id="success-message" className="success-message">Success</div> : <></>}
             </form>
         </>
 

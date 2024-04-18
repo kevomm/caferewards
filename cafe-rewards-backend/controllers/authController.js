@@ -86,6 +86,11 @@ const authMiddleware = (req, res, next) => {
             message: 'Invalid token -- Please Login'
         });
     } else {
+        req.user = {
+            email: claims.user.email,
+            name: claims.user.firstName,
+            id: claims.user.id
+        }
         next()
     }
 };

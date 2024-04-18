@@ -3,19 +3,21 @@ const Router = require('express').Router;
 const User = require('../models/user');
 const protectedRouter = Router();
 const authRouter = Router();
+const jwt = require('jsonwebtoken');
+const error = require("jsonwebtoken/lib/JsonWebTokenError");
 
 protectedRouter.use(authMiddleware);
-protectedRouter.get('/getAllUsers', async (req, res) => {
-    res.json(await User.findAll());
+authRouter.use('/account', protectedRouter);
+protectedRouter.get('/dashboard',(req, res) => {
+    try {
+        res.send(req.user)
+    } catch(error) {
+        return res.status(500).json({
+            status: 500,
+            message: error.message
+        });
+    }
 });
-
-
-
-
-
-
-// retister and login routes
-authRouter.use('/account', protectedRouter)
 
 /**
  * Handles the POST request to register a new user.
@@ -28,7 +30,7 @@ authRouter.post('/register', async (req, res) => {
         await register(req.body.email, req.body.password, req.body.firstName, req.body.lastName);
         return res.status(201).json({
             status: 201,
-            message: 'User successfuly created!'
+            message: 'User successfully created!'
         });
     } catch (error) {
         if(error.message === 'Validation error') {
@@ -53,12 +55,19 @@ authRouter.post('/register', async (req, res) => {
 authRouter.post('/login', async (req, res) => {
     try {
         const claims = await login(req.body.email, req.body.password);
-        const maxAge = 7 * 24 * 60 * 62 * 1000
+        const maxAge = 24 * 60 * 62 * 1000
 
-        res.cookie('auth', claims, { maxAge: maxAge, httpOnly: true })
+        res.cookie(
+            'auth',
+            claims,
+            {
+                maxAge: maxAge,
+                httpOnly: true,
+            }
+        );
         return res.status(200).json({
             status: 200,
-            message: 'User successfuly logged in!'
+            message: 'User successfully logged in!'
         });
     } catch (error) {
         return res.status(404).json({
@@ -67,7 +76,6 @@ authRouter.post('/login', async (req, res) => {
         })
     }
 });
-
 
 /**
  * Handles the POST request to log out a user by clearing the authentication cookie.
@@ -82,8 +90,6 @@ authRouter.post('/logout', (req, res) => {
         message: 'User successfuly logged out!'
     })
 });
-
-
 
 
 module.exports = authRouter;
