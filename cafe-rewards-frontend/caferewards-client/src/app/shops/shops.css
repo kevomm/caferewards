@@ -1,29 +1,54 @@
-
-body {
-    color: #333;
-    font-family: Arial, sans-serif;
-}
-
 .shop-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: 20px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    width: 350px;
+    overflow-y: auto;
+    padding: 1rem;
+    border-right: 1px solid #ccc;
 }
-
+.shop-list h2,
+.shop-list input,
+.shop-list button {
+    margin-bottom: 1rem;
+}
 .shop-item {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+.order-button {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+.shops-page {
+    display: flex;
+    height: 100vh;
+}
+.map-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    margin: 20px 0;
 }
 
-.shop-item h2 {
-    margin: 0 0 10px;
-}
+/* Mobile View */
+@media (max-width: 768px) {
+    .shops-page {
+        flex-direction: column; /* Switch to vertical layout */
+        height: auto; /* Set height to automatic instead of viewport */
+    }
 
-.shop-item p {
-    margin: 0;
+    .shop-list, .map-container {
+        width: 100%; /* Fill the width of the viewport */
+        border-right: none; /* Remove the border */
+    }
+
+    .map-container {
+        padding-top: 1rem; /* Add some padding at the top */
+    }
 }

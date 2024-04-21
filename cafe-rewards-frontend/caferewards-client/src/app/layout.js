@@ -12,14 +12,15 @@ export default function RootLayout({ children }) {
       <body>
         <header className="main-header">
           <nav className="main-nav">
-            <ul className="nav-list">
-              <li><Link href="/">HOME</Link></li>
-              <li><Link href="global">GLOBAL</Link></li>
-              <li><Link href="cards">CARDS</Link></li>
-              <li><Link href="order">ORDER</Link></li>
-              <li><Link href="shops">SHOPS</Link></li>
-              <li><Link href="account">ACCOUNT</Link></li>
-            </ul>
+              <ul className="nav-list">
+                  <li><Link href="#">HOME</Link></li>
+                  <li><Link href="global">GLOBAL</Link></li>
+                  <li><Link href="cards">CARDS</Link></li>
+                  <li className="logo">CAFÉ REWARDS</li>
+                  <li><Link href="order">ORDER</Link></li>
+                  <li><Link href="shops">SHOPS</Link></li>
+                  <li><Link href="account">ACCOUNT</Link></li>
+              </ul>
           </nav>
         </header>
         {children}
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
           <div className="footer-content">
               <div className="footer-nav">
                   <ul className="nav-list">
-                      <li><Link href="/">HOME</Link></li>
+                      <li><Link href="#">HOME</Link></li>
                       <li><Link href="global">GLOBAL</Link></li>
                       <li><Link href="cards">CARDS</Link></li>
                       <li><Link href="order">ORDER</Link></li>
@@ -36,7 +37,7 @@ export default function RootLayout({ children }) {
                   </ul>
               </div>
               <div className="footer-logo">
-                  <a href="index.html" className="logo">CAFÉ REWARDS</a>
+                  <a href="#" className="logo">CAFÉ REWARDS</a>
               </div>
               <div className="footer-legal">
                   <p>&copy; 2024 Café Rewards Puerto Rico. All rights reserved.</p>
