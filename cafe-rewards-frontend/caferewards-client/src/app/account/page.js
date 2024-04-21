@@ -1,4 +1,4 @@
-import './global.css';
+import './account.css';
 import RootLayout from '../layout';
 
 export default function NewPage() {

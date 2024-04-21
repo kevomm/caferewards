@@ -1,4 +1,4 @@
-import './global.css';
+import './order.css';
 import RootLayout from '../layout';
 
 export default function NewPage() {

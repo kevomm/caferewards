@@ -14,11 +14,11 @@ export default function RootLayout({ children }) {
           <nav className="main-nav">
             <ul className="nav-list">
               <li><Link href="/">HOME</Link></li>
-              <li><Link href="#">GLOBAL</Link></li>
-              <li><Link href="#">CARDS</Link></li>
-              <li><Link href="#">ORDER</Link></li>
-              <li><Link href="#">SHOPS</Link></li>
-              <li><Link href="#">ACCOUNT</Link></li>
+              <li><Link href="global">GLOBAL</Link></li>
+              <li><Link href="cards">CARDS</Link></li>
+              <li><Link href="order">ORDER</Link></li>
+              <li><Link href="shops">SHOPS</Link></li>
+              <li><Link href="account">ACCOUNT</Link></li>
             </ul>
           </nav>
         </header>
@@ -28,11 +28,11 @@ export default function RootLayout({ children }) {
               <div className="footer-nav">
                   <ul className="nav-list">
                       <li><Link href="/">HOME</Link></li>
-                      <li><Link href="/global">GLOBAL</Link></li>
-                      <li><Link href="#">CARDS</Link></li>
-                      <li><Link href="#">ORDER</Link></li>
-                      <li><Link href="#">SHOPS</Link></li>
-                      <li><Link href="#">ACCOUNT</Link></li>
+                      <li><Link href="global">GLOBAL</Link></li>
+                      <li><Link href="cards">CARDS</Link></li>
+                      <li><Link href="order">ORDER</Link></li>
+                      <li><Link href="shops">SHOPS</Link></li>
+                      <li><Link href="account">ACCOUNT</Link></li>
                   </ul>
               </div>
               <div className="footer-logo">
