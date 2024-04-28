@@ -1,10 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const { sequelize } = global;
 
-class Transaction extends Model {}
+class Order extends Model {}
 
-Transaction.init({
-    transactionid: {
+Order.init({
+    orderid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -17,26 +17,30 @@ Transaction.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    purchaseamount: {
-        type: DataTypes.DECIMAL(10, 2),
+    orderdetails: {
+        type: DataTypes.TEXT,
         allowNull: false,
     },
-    pointsearned: {
-        type: DataTypes.INTEGER,
+    totalamount: {
+        type: DataTypes.DECIMAL,
         allowNull: false,
     },
-    datetime: {
+    orderstatus: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    estimatedtime: {
         type: DataTypes.DATE,
         allowNull: false,
-    },
+    }
 }, {
     sequelize,
-    modelName: 'Transaction',
-    tableName: 'transactions',
-    timestamps: false, // set this to true if you have createdAt and updatedAt fields
+    modelName: 'Order',
+    tableName: 'orders',
+    timestamps: false,
 });
 
-Transaction.associate = function(models) {
+Order.associate = function(models) {
     this.belongsTo(models.Users, {
         foreignKey: 'userid',
     });
@@ -44,6 +48,6 @@ Transaction.associate = function(models) {
     this.belongsTo(models.Coffeeshops, {
         foreignKey: 'shopid',
     });
-};
+}; // This closing bracket was missing
 
-module.exports = Transaction;
+module.exports = Order;
