@@ -1,15 +1,48 @@
-const stripe = require('stripe')('sk_test_51Ors4O01PBnNHA0XRwcZVEvHlWebwr3JIO56mX1rItFomlBtn5IRPvGsWdqVNpdl5uhofYx9Itsai2m13IfBJdPY00Kg5MOcYi')
+const stripe = require('stripe')(process.env.STRIPE_KEY);
+const User= require('../models/user');
 
-async function getCustomers() {
-    const customers = await stripe.customers.list()
-    console.log(customers)
+
+
+const getCustomers = async ()  => {
+    const customers = await stripe.customers.list();
+    console.log(customers);
 }
 
 const createCustomer = async (email, name)=> {
     const customer = await stripe.customers.create({
         name: name,
         email: email
-    })
+    });
+    await User.update({stripeId: customer.id}, {where : {email: email}});
 }
 
-createCustomer('kevin.perezgali@gmail.com', 'Kevin Perez')
+const createCard_setupIntent_create = async (stripeCustomerId) => {
+    const setupIntent = await stripe.setupIntents.create({
+        automatic_payment_methods: {
+            enabled: true
+        },
+        customer: stripeCustomerId
+    });
+    return setupIntent.client_secret;
+}
+
+const updateCustomerPaymentMethod = async (stripeCustomerId, paymentMethodId) => {
+    await stripe.customers.update(
+        stripeCustomerId,
+        {
+            invoice_settings: {default_payment_method: paymentMethodId}
+        }
+    );
+}
+
+const retrieveSetupIntent =  async (setupId) => {
+    return await stripe.setupIntents.retrieve(setupId);
+}
+
+module.exports = {
+    getCustomers,
+    createCustomer,
+    createCard_setupIntent_create,
+    updateCustomerPaymentMethod,
+    retrieveSetupIntent
+}

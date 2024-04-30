@@ -1,21 +1,74 @@
-const { register, login, authMiddleware } = require('../controllers/authController');
+const { register, login, authMiddleware, updateUserCard } = require('../controllers/authController');
 const Router = require('express').Router;
-const User = require('../models/user');
 const protectedRouter = Router();
 const authRouter = Router();
+const User = require('../models/user');
+const { createCustomer, createCard_setupIntent_create, retrieveSetupIntent, updateCustomerPaymentMethod } = require('../controllers/stripeController');
+const {where} = require("sequelize");
+
+
+
+
+
 
 protectedRouter.use(authMiddleware);
-protectedRouter.get('/getAllUsers', async (req, res) => {
-    res.json(await User.findAll());
+authRouter.use('/account', protectedRouter);
+
+
+protectedRouter.get('/dashboard',async (req, res) => {
+    try {
+        const user = await User.findOne({where: {id: req.user.id}});
+        res.status(200).json({
+            status: 200,
+            user: {
+                email: user.email,
+                id: user.id,
+                card: user.card,
+                stripeId: user.stripeId,
+            }
+        });
+    } catch(error) {
+        return res.status(500).json({
+            status: 500,
+            message: error.message
+        });
+    }
+});
+
+protectedRouter.post('/createcard_request', async (req, res) => {
+    try {
+        const customerId = req.user.stripeId;
+        const clientSecret = await createCard_setupIntent_create(customerId);
+
+        res.status(200).json({ clientSecret: clientSecret });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while setting up the intent.' });
+    }
+});
+
+protectedRouter.post('/createcard_confirm', async (req, res) => {
+    try {
+        // check si if success
+        const si = await retrieveSetupIntent(req.body.siId);
+        const status = 'succeeded';
+        if(status.localeCompare(si.status)) throw Error('Setup Intent Failed');
+
+        await updateCustomerPaymentMethod(req.user.stripeId, si.payment_method);
+
+        const user = await updateUserCard(true, req.user.email);
+        if(!user) throw Error('Update User Failed');
+
+        res.status(200).json({ success: true });
+    } catch(error) {
+        res.status(500).json({
+            error: error.message
+        });
+    }
 });
 
 
 
 
-
-
-// retister and login routes
-authRouter.use('/account', protectedRouter)
 
 /**
  * Handles the POST request to register a new user.
@@ -25,10 +78,15 @@ authRouter.use('/account', protectedRouter)
  */
 authRouter.post('/register', async (req, res) => {
     try {
+        // register new user
         await register(req.body.email, req.body.password, req.body.firstName, req.body.lastName);
+
+        // create stripe customer
+        await createCustomer(req.body.email, req.body.firstName + ' ' + req.body.lastName)
+
         return res.status(201).json({
             status: 201,
-            message: 'User successfuly created!'
+            message: 'User successfully created!'
         });
     } catch (error) {
         if(error.message === 'Validation error') {
@@ -53,12 +111,19 @@ authRouter.post('/register', async (req, res) => {
 authRouter.post('/login', async (req, res) => {
     try {
         const claims = await login(req.body.email, req.body.password);
-        const maxAge = 7 * 24 * 60 * 62 * 1000
+        const maxAge = 24 * 60 * 62 * 1000
 
-        res.cookie('auth', claims, { maxAge: maxAge, httpOnly: true })
+        res.cookie(
+            'auth',
+            claims,
+            {
+                maxAge: maxAge,
+                httpOnly: true,
+            }
+        );
         return res.status(200).json({
             status: 200,
-            message: 'User successfuly logged in!'
+            message: 'User successfully logged in!'
         });
     } catch (error) {
         return res.status(404).json({
@@ -67,7 +132,6 @@ authRouter.post('/login', async (req, res) => {
         })
     }
 });
-
 
 /**
  * Handles the POST request to log out a user by clearing the authentication cookie.
@@ -82,6 +146,9 @@ authRouter.post('/logout', (req, res) => {
         message: 'User successfuly logged out!'
     })
 });
+
+
+
 
 
 

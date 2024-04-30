@@ -4,15 +4,17 @@ const bodyParser = require('body-parser');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors')
-const User = require('./models/user');
-
 const app = express();
+const User = require('./models/user');
 
 // db
 const sequelize = require('./config/config');
 
 // cors
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: ['http://localhost:3001', 'http://172.233.189.185:3001']
+}));
 
 // http parsers
 app.use(bodyParser.json());
@@ -21,20 +23,16 @@ app.use(cookieParser());
 // auth routes
 app.use('/auth', authRoutes);
 
-app.get('/allusers', async (req, res) => {
-    try {
-        res.json(await User.findAll());
-    } catch (error) {
-        res.status(500).json({
-            status: 500,
-            error: error.message
-        });
-    }
+
+app.get('/getusers', async (req, res) => {
+    const u = await User.findAll();
+    res.json({
+        users: u
+    })
 });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
     await sequelize.sync();
-    console.log('sync db')
     console.log(`Server running on port ${PORT}`);
 });
