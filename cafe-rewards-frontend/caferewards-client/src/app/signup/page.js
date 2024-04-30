@@ -74,14 +74,10 @@ export default function Signup() {
                 <input onChange={handlePasswordChange} type="password" id="password" name="password" required/><br/>
                 <label htmlFor="confirm-password">Confirm Password:</label><br/>
                 <input onChange={handleConfirmChange} type="password" id="confirm-password" name="confirm-password" required/><br/>
-                {/* <div class="agreement-container">
-                    <input type="checkbox" id="agreement" name="agreement" required />
-                    <label htmlFor="agreement">I agree to the Terms and Conditions.</label><br/>
-                </div> */}
                 <button type="submit">Sign Up</button>
                 <p>Already a member? <Link href="/login">Log In</Link></p>
-        
-                { error ? <div id="error-message" className="error-message">Error</div> : <></>}
+
+                {error ? <div id="error-message" className="error-message">Error</div> : <></>}
             </form>
         </>
 

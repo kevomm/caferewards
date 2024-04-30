@@ -23,7 +23,6 @@ const register = async (email, password, firstName, lastName) => {
     await User.create({email: email, password: hashPass, firstName: firstName, lastName: lastName, role: 1});
 };
 
-
 /**
  * Logs in a user with the provided email and password.
  *
@@ -37,10 +36,14 @@ const login = async (email, password) => {
     if(!user) throw new Error('Incorrect credentials');
     const passwordMatch = await compare(password, user.password);
     if(!passwordMatch) throw new Error('Incorrect credentials');
-    const token = jwt.sign({ user: user }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({user: {
+            email: user.email,
+            id: user.id,
+            card: user.card,
+            stripeId: user.stripeId,
+        }}, process.env.JWT_SECRET, { expiresIn: '1h' });
     return token;
 };
-
 
 /**
  * Generates a new JWT token if the provided token is expired; otherwise, returns the old token.
@@ -60,8 +63,7 @@ const refreshToken = (oldToken) => {
         // Token is still valid, return the old token
         return oldToken;
     }
-}
-
+};
 
 /**
  * Middleware to verify JWT token for authentication.
@@ -88,17 +90,27 @@ const authMiddleware = (req, res, next) => {
     } else {
         req.user = {
             email: claims.user.email,
-            name: claims.user.firstName,
-            id: claims.user.id
+            id: claims.user.id,
+            card: claims.user.card,
+            stripeId: claims.user.stripeId,
         }
-        next()
+        next();
     }
 };
 
+const updateUserCard = async (card, criteria) => {
+    const user = await User.update({card: card}, {
+        where: {
+            email: criteria
+        }
+    });
+    return user
+}
 
 
 module.exports = {
     register,
     login,
-    authMiddleware
+    authMiddleware,
+    updateUserCard
 }

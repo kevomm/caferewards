@@ -29,6 +29,13 @@ const User = sequelize.define('User', {
     role: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    stripeId: {
+        type: DataTypes.STRING,
+    },
+    card: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 }, { tableName: 'users' });
 

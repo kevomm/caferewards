@@ -5,6 +5,7 @@ const express = require('express');
 require('dotenv').config();
 const cors = require('cors')
 const app = express();
+const User = require('./models/user');
 
 // db
 const sequelize = require('./config/config');
@@ -21,6 +22,14 @@ app.use(cookieParser());
 
 // auth routes
 app.use('/auth', authRoutes);
+
+
+app.get('/getusers', async (req, res) => {
+    const u = await User.findAll();
+    res.json({
+        users: u
+    })
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, async () => {
