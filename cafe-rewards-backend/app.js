@@ -6,6 +6,7 @@ require('dotenv').config();
 const cors = require('cors')
 const app = express();
 const User = require('./models/user');
+const { getAllConnectedAccounts, getAllProductsFromShop } = require('./controllers/stripeController');
 
 // db
 const sequelize = require('./config/config');
@@ -24,11 +25,37 @@ app.use(cookieParser());
 app.use('/auth', authRoutes);
 
 
+
+
+
+
 app.get('/getusers', async (req, res) => {
     const u = await User.findAll();
     res.json({
         users: u
     })
+});
+
+app.get('/getcoffeeshops', async (req, res) => {
+    const a = await getAllConnectedAccounts();
+    res.json({
+        accounts: a
+    });
+});
+
+
+
+
+
+
+app.get('/getproducts/:id', async (req, res) => {
+    const urlId = req.params.id;
+    try {
+        const products = await getAllProductsFromShop(urlId);
+        res.status(200).json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 const PORT = process.env.PORT || 3001;

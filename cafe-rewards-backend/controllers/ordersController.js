@@ -1,4 +1,4 @@
-const Order = require('../orders/ordersModel');
+const Order = require('../models/orders');
 
 class OrderController {
 

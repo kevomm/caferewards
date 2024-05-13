@@ -1,9 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const { sequelize } = global;
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/config'); // Assuming your Sequelize configuration is in '../config/config'
 
-class Menus extends Model {}
-
-Menus.init({
+const Menus = sequelize.define('Menus', {
     menuid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -12,29 +10,16 @@ Menus.init({
     shopid: {
         type: DataTypes.INTEGER,
         allowNull: false
-    },
-    itemname: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    itemprice: {
-        type: DataTypes.DECIMAL(10,2), // Use decimal type for precise calculation
-        allowNull: false
-    },
-    itemdescription: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
+    }
 }, {
-    sequelize,
-    modelName: 'Menus',
     tableName: 'menu',
-    timestamps: false, // set this to true if you have createdAt and updatedAt fields
+    timestamps: false,
 });
 
-Menus.associate = function(models) {
+Menus.associate = (models) => {
     this.belongsTo(models.Coffeeshops, {
         foreignKey: 'shopid',
     });
 };
+
 module.exports = Menus;

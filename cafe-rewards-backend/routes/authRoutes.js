@@ -1,19 +1,22 @@
 const { register, login, authMiddleware, updateUserCard } = require('../controllers/authController');
 const Router = require('express').Router;
-const protectedRouter = Router();
-const authRouter = Router();
 const User = require('../models/user');
 const { createCustomer, createCard_setupIntent_create, retrieveSetupIntent, updateCustomerPaymentMethod } = require('../controllers/stripeController');
 const {where} = require("sequelize");
 
+const protectedRouter = Router();
+const authRouter = Router();
+const ordersRouter = require('../routes/ordersRoute');
+const coffeeShopRouter = require('../routes/coffeeshopRoutes');
+const menuRouter = require('../routes/menuRoutes');
+const menuItemsRouter = require('../routes/menuItems');
 
 
 
 
 
+// protected router - this router checks is user is signed in
 protectedRouter.use(authMiddleware);
-authRouter.use('/account', protectedRouter);
-
 
 protectedRouter.get('/dashboard',async (req, res) => {
     try {
@@ -67,8 +70,18 @@ protectedRouter.post('/createcard_confirm', async (req, res) => {
 });
 
 
+// this router is for making orders
+protectedRouter.use('/order', ordersRouter);
 
 
+
+
+
+
+authRouter.use('/account', protectedRouter);
+authRouter.use('/coffeeshop', coffeeShopRouter);
+authRouter.use('/menu', menuRouter);
+authRouter.use('/items', menuItemsRouter);
 
 /**
  * Handles the POST request to register a new user.

@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
               <li><Link href="/">HOME</Link></li>
               <li><Link href="#">GLOBAL</Link></li>
               <li><Link href="#">CARDS</Link></li>
-              <li><Link href="#">ORDER</Link></li>
+              <li><Link href="/order">ORDER</Link></li>
               <li><Link href="#">SHOPS</Link></li>
-              <li><Link href="#">ACCOUNT</Link></li>
+              <li><Link href="/dashboard">ACCOUNT</Link></li>
             </ul>
           </nav>
         </header>

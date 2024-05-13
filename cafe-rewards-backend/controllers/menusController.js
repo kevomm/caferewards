@@ -1,4 +1,4 @@
-const Menu = require('../menus/menusModel');
+const Menu = require('../models/menu');
 
 class MenuController {
 

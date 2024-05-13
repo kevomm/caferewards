@@ -40,6 +40,7 @@ function PaymentForm() {
                 },
                 body: JSON.stringify({siId: si.setupIntent.id})
             });
+            window.location.reload();
         } catch(error) {
             console.log(error.message);
         }
@@ -47,6 +48,7 @@ function PaymentForm() {
 
     return (
         <div className="cardForm">
+            <h1 className="cardTitle">Please, Add a card</h1>
             <form onSubmit={handleSubmit}>
                 <CardElement options={{}}/>
                 <button type="submit">Save Card</button>

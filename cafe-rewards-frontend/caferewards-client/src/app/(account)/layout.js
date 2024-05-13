@@ -1,16 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react';
+import {useEffect, useState, createContext} from 'react';
 import { redirect } from "next/navigation";
-import { Elements } from "@stripe/react-stripe-js";
-import {loadStripe} from "@stripe/stripe-js";
-const stripePromise = loadStripe('pk_test_51Ors4O01PBnNHA0X1HQbBSHuJcyVRUYRCLr1HA8AMoPpmvbRLriDcIPNKiniy63NUuo1f6TzfrjwNn3dhU0ZOocG00f04AKRcH');
-const PaymentForm = require('./cardForm');
 
+export const AccountContext = createContext();
 
-const DashboardPage = () => {
+export default function AccountLayout({ children }) {
 
     const [data, setData] = useState(null);
-    const [customerSecret, setCustomerSecret] = useState(null);
     const [authError, setAuthError] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -38,20 +34,10 @@ const DashboardPage = () => {
     }, []);
 
     if(authError) return redirect('/login');
-
-    if(loading) {
-        return (
-            <>Loading</>
+    if(loading) return <>Loading...</>;
+    else return (
+            <AccountContext.Provider value={data}>
+                {children}
+            </AccountContext.Provider>
         );
-    } else {
-        return (
-            <div>
-                {data?.card
-                    ? <></>
-                    : <Elements stripe={stripePromise}><PaymentForm/></Elements>}
-            </div>
-        );
-    }
-};
-
-export default DashboardPage;
+}
